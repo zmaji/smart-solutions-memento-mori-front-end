@@ -59,7 +59,7 @@
 
   // Icon
   &__icon {
-    @include transition(transform);
+    // @include transition(transform);
     @include square(0.85rem);
     margin-bottom: 1px; // v-align
 

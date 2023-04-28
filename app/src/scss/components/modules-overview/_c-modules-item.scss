@@ -29,17 +29,17 @@
     flex-direction: column;
     padding: 2rem 1rem;
     background: $black;
-    margin: 0 1.25rem;
     transform: translateY(-2.5rem);
 
     @include breakpoint(medium) {
       padding: 2.5rem 2rem;
     }
-  }
 
-  &__image-container {
-    @include transition();
-    height: 50%;
+    > *:not(:last-child) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   &__subtitle {
