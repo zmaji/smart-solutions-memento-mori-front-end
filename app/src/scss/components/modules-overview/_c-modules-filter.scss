@@ -1,0 +1,223 @@
+.c-modules-filter {
+  $root: &;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 3.75rem;
+
+  @include breakpoint(small only) {
+    margin-bottom: 2rem;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+
+    @include breakpoint(medium) {
+      width: calc(100% - 410px);
+      padding-right: 2rem;
+    }
+  }
+
+  &__dropdown-title {
+    @include transition();
+    color: $black;
+    font-size: rem-calc(16);
+    fill: $primary-color;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 1rem 1.5rem;
+    background: $light-gray;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @include breakpoint(small only) {
+      justify-content: space-between;
+    }
+
+    &.active {
+      color: $white;
+      fill: $white;
+      background: $primary-color;
+
+      #{$root}__chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__dropdown {
+    margin-right: 0.75rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+
+    @include breakpoint(small only) {
+      margin-right: 0;
+      width: 100%;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      @include breakpoint(medium) {
+        #{$root}__dropdown-title {
+          color: $white;
+          fill: $white;
+          background: $primary-color;
+        }
+  
+        #{$root}__container {
+          display: block;
+          padding: 2.5rem 1.25rem;
+          opacity: 1;
+        }
+  
+        #{$root}__chevron {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  &__container {
+    transition: opacity 0.3s;
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top: 0.625rem solid $white;
+    transform: translateY(100%);
+    background: $almost-black;
+    overflow-y: scroll;
+    z-index: 3;
+    opacity: 0;
+    min-width: rem-calc(200);
+    max-height: rem-calc(400);
+
+    @include breakpoint(medium) {
+      white-space: nowrap;
+      max-height: rem-calc(500);
+    }
+
+    @include breakpoint(small only) {
+      width: 100%;
+    }
+
+    &.active {
+      display: block;
+      padding: 2.5rem 1.25rem;
+      opacity: 1;
+    }
+  }
+
+  &__chevron {
+    @include transition();
+    @include square(0.75rem);
+    margin-left: 0.5rem;
+    margin-top: 2px;
+  }
+  
+  &__checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    line-height: 1.2;
+    width: 100%;
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__input {
+    position: relative;
+    display: none;
+
+    &:checked + .c-modules-filter__label::after {
+      content: url('https://f.hubspotusercontent10.net/hubfs/663810/check-darkblue.svg');
+      @include square(0.825rem);
+    }
+
+    &:disabled + .c-modules-filter__label::before {
+      background: $black;
+    }
+
+    &:checked + .c-modules-filter__label::before {
+      background: $white;
+      border: 1px solid $white;
+    }
+  }
+
+  &__label {
+    color: $white;
+    position: relative;
+    cursor: pointer;
+    padding-left: 2rem;
+    font-size: rem-calc(16);
+    font-weight: 400;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 1.5rem;
+
+    &::before {
+      @include square(1.25rem);
+      @include transition(background);
+      position: absolute;
+      background: $black;
+      border: 1px solid $white;
+      content: '';
+      top: 0.125rem;
+      left: 0;
+
+      /* IE10 & IE11 */
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        top: 3px;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 4px;
+      top: 2px;
+    }
+  }
+
+  &__reset-title {
+    color: $white;
+    position: relative;
+    cursor: pointer;
+    padding-bottom: 2rem;
+    font-size: rem-calc(16);
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 1.5rem;
+  }
+
+  &__icon {
+    @include transition();
+    @include square(1rem);
+    margin-right: 0.5rem;
+  }
+
+  &__filter-label {
+    font-size: 1rem;
+    margin: 1rem 0;
+    transform: translateY(1rem);
+
+    @include breakpoint(medium down) {
+      margin-top: 0;
+    }
+  }
+}

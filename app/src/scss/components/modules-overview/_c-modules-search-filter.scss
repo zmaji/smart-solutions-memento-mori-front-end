@@ -1,0 +1,56 @@
+.c-modules-search-filter {
+  $root: &;
+  position: relative;
+  margin-left: auto;
+  width: 100%;
+  
+  @include breakpoint(medium) {
+    width: rem-calc(410);
+  }
+
+  @include breakpoint(medium down) {
+    margin-bottom: 1rem;
+  }
+
+  form {
+    #{$root}__search-field {
+      width: 100%;
+      min-height: rem-calc(48);
+      padding: 1rem 1.5rem;
+      background: $light-gray;
+      box-sizing: border-box;
+      font-size: rem-calc(15);
+      font-weight: 400;
+      line-height: 1.1rem;
+      border: 0;
+      font-family: $primary-font-family;
+      color: $black;
+
+      &::placeholder {
+        color: $black;
+        font-weight: 400;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    #{$root}__submit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: transparent;
+      background-image: url('https://www.greatplacetowork.nl/hubfs/Bright%20-%20Website%202022/Assets/Icons/search-white.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: $black;
+      background-size: 1.375rem;
+      border: 0;
+      height: 100%;
+      width: rem-calc(48);
+      font-size: 0;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+.c-modules-item {
+  $root: &;
+
+  &:hover {
+    #{$root}__content-container {
+      background: $white;
+    }
+
+    #{$root}__subtitle {
+      color: $secondary-color;
+    }
+
+    #{$root}__title {
+      color: $primary-color;
+    }
+
+    #{$root}__button {
+      color: $black;
+      fill: $black;
+    }
+
+    #{$root}__icon {
+      transform: translateX(0.25rem);
+    }
+  }
+
+  &__content-container {
+    @include transition();
+    flex-direction: column;
+    padding: 2rem 1rem;
+    background: $black;
+    margin: 0 1.25rem;
+    transform: translateY(-2.5rem);
+
+    @include breakpoint(medium) {
+      padding: 2.5rem 2rem;
+    }
+  }
+
+  &__image-container {
+    @include transition();
+    height: 50%;
+  }
+
+  &__subtitle {
+    @include transition();
+    font-size: rem-calc(16);
+    font-weight: 600;
+    line-height: 1.4;
+    color: $secondary-color;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    @include transition();
+    color: $white;
+    font-size: rem-calc(28);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+
+    @include breakpoint(small only) {
+      font-size: rem-calc(24);
+    }
+  }
+
+  &__description {
+    @include transition();
+    color: $secondary-color;
+    font-size: rem-calc(14);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .c-button {
+    font-weight: 600;
+  }
+
+  &__icon {
+    margin-left: 0.5rem;
+  }
+}

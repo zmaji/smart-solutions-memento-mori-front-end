@@ -1,0 +1,53 @@
+/**
+ * Colors
+ *
+ * @since 1.0.0
+ */
+
+$black: #000;
+$white: #fff;
+
+$lighter-gray: rgb(239, 239, 239);
+$light-gray: #DDDDDD;
+$gray: #848484;
+$dark-gray: #2C2A2A;
+$almost-black: #212020;
+
+$border-light-gray: #DDDDDD;
+$border-gray: #bababa;
+
+$error: #bababa;
+$success: #dddddd;
+
+$primary-color: #2c2a2a;
+$secondary-color: #848484;
+$primary-font-color: $black;
+
+//Gradient colors
+$gradient-color-1: #DDDDDD;
+$gradient-color-2: #000;
+$gradient-color-3: #848484;
+$gradient-color-4: #bababa;
+$gradient-color-5: #2C2A2A;
+//Gradients
+$gradient-45deg: linear-gradient(45deg, $gradient-color-1 0%, $gradient-color-2 50%, $gradient-color-3 100%);
+
+
+//Theme colors
+$theme-color-1: $black;
+$theme-color-2: $gray;
+$theme-color-3: $light-gray;
+$theme-color-4: $dark-gray;
+$theme-color-5: $border-gray;
+
+
+// forms
+$checkbox: $gray;
+$input-border: $light-gray;
+$input-background: $white;
+$input-color: $primary-font-color;
+$input-disabled: $light-gray;
+$input-focus: $light-gray;
+$input-placeholder: $primary-font-color;
+$input-label-color: $primary-font-color;
+$radio: $gray;
