@@ -1,5 +1,3 @@
-// import logo from './logo.svg';
-// import './App.css';
 import React, { Component, Fragment } from 'react';
 import ItemsAPI from './api/ItemsAPI'
 import Loader from './Components/Loader';
@@ -12,14 +10,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      // portalId: props.portal,
-      // tableId: props.table,
       isLoading: true,
       people: [],
       currentCategories: [],
       searchText: '',
       count: 6,
-      after: '',
     };
   }
 
@@ -30,28 +25,6 @@ class App extends Component {
   initiate() {
     this.fetchPosts();
   }
-
-  // fetchPosts() {
-  //   this.setState({ isLoading: true });
-  //   ItemsAPI.all(this.state)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       window.setTimeout(() => {
-  //         this.setState({
-  //           posts: [...this.state.posts, ...data],
-  //           totalAmountPosts: data.total,
-  //           isLoading: false,
-  //           after: data.paging ? data.paging.next.after : '',
-  //         });
-  //       }, 250);
-  //     })
-  //     .catch(error => {
-  //       this.setState({
-  //         error: true,
-  //         isLoading: false,
-  //       });
-  //     });
-  // }
 
   fetchPosts() {
     this.setState({ isLoading: true });
@@ -64,7 +37,6 @@ class App extends Component {
             people: [...this.state.people, ...data],
             totalAmountPeople: data.length,
             isLoading: false,
-            // after: data.paging ? data.paging.next.after : '',
           });
         }, 250);
       })
@@ -89,13 +61,12 @@ class App extends Component {
       return {
         [e.currentTarget.dataset.target]: currentElements,
         posts: [],
-        after: '',
       };
     }, this.initiate);
   }
 
   handleShowMore(e) {
-    this.initiate();
+    this.setState(prevState => ({ count: prevState.count + 6 }));
   }
 
   handleSearch(searchText) {
@@ -108,7 +79,6 @@ class App extends Component {
     this.setState(
       {
         posts: [],
-        after: '',
       },
       this.initiate,
     );
@@ -122,22 +92,20 @@ class App extends Component {
         // currentYears: [],
         searchText: '',
         posts: [],
-        after: '',
       };
     }, this.initiate);
   }
 
   render() {
-    const count = this.state.people.length;
+    const count = 6;
 
     return (
-      <section class="c-modules-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
-        <div class="o-container">
-          <div class="u-squeeze u-squeeze--">
-            <div class="c-modules-overview__container">
+      <section className="c-modules-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
+        <div className="o-container">
+          <div className="u-squeeze u-squeeze--">
+            <div className="c-modules-overview__container">
               <div className="c-modules-overview__app-container">
               <Filter
-                // labels={this.props.labels}
                 currentCategories={this.state.currentCategories}
                 handleChange={this.handleChange.bind(this)}
                 searchText={this.state.searchText}
@@ -152,10 +120,9 @@ class App extends Component {
                           people={this.state.people}
                           nrAll={this.state.totalAmountPeople}
                           loading={this.state.isLoading}
-                          // labels={this.props.labels}
                           handleChange={this.handleChange.bind(this)}
                           handleShowMore={this.handleShowMore.bind(this)}
-                          // after={this.state.after}
+                          count={count}
                         />
                       </div>
                     </Fragment>

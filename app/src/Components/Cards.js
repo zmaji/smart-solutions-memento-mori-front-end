@@ -3,32 +3,34 @@ import Card from './Card';
 import Loader from './Loader';
 
 const Cards = props => {
-  console.log(`PROPS:`);
-  console.log(JSON.stringify(props, null, 2));
-  const activeClass = props.showAll ? 'active' : '';
+  const [visibleCards, setVisibleCards] = React.useState(6);
+  const activeClass = visibleCards >= props.people.length ? 'active' : '';
+  
+  const handleShowMore = () => {
+    setVisibleCards(visibleCards + 6);
+  };
+
   return (
     <div className="c-modules-overview__posts u-flex u-flex-v-start">
-      {props.people.map(person => {
-        return <Card key={person.person_id} card={person}/>;
-        // labels={props.labels}
+      {props.people.slice(0, visibleCards).map(person => {
+        return <Card key={person.person_id} card={person} />;
       })}
 
       {props.loading ? <Loader /> : null}
 
-      {props.after !== '' && !props.loading ? (
+      {props.people.length > visibleCards ? (
         <div className="c-modules-overview__toggle-button-container">
           <div className="c-modules-overview__progress-bar">
-            {/* <div className="c-modules-overview__progress" style={`width: ${(props.people.length / props.nrAll) * 100}%`} /> */}
-            <div className="c-modules-overview__progress" style={{ width: `${(props.people.length / props.nrAll) * 100}%` }} />
+            <div className="c-modules-overview__progress" style={{ width: `${(visibleCards / props.people.length) * 100}%` }} />
           </div>
 
           <div className="c-modules-overview__posts-count">
-            {props.people.length}
+            {visibleCards} of {props.people.length}
           </div>
 
-          <div className={`c-modules-overview__toggle-button u-flex ${activeClass}`} onClick={props.handleShowMore}>
-            <div className="c-modules-overview__show-more">Load more</div>
-            <div className="c-modules-overview__show-less">All items loaded</div>
+          <div className={`c-modules-overview__toggle-button u-flex ${activeClass}`} onClick={handleShowMore}>
+            <div className="c-modules-overview__show-more">Bekijk meer</div>
+            <div className="c-modules-overview__show-less">Alles geladen</div>
             <svg className="c-icon c-modules-overview__icon">
               <use href="#arrow-down" xlinkHref="#arrow-down" />
             </svg>

@@ -16,7 +16,6 @@ const Post = props => {
         <div className="c-modules-item__button c-button c-button--tertiary-white">
           Bekijk meer
           <svg className="c-icon c-modules-item__icon c-button__icon">
-            {/* <use href="#chevron-right" xlinkHref="#chevron-right"/> */}
             <use href={ChevronRight + '#chevron-right'}/>
           </svg>
         </div>
