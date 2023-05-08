@@ -32,23 +32,23 @@ class App extends Component {
       searchText: this.state.searchText,
       count: this.state.count
     })
-      .then(data => {
-        console.log(`FETCH DATA:`);
-        console.log(data);
-        window.setTimeout(() => {
-          this.setState({
-            people: data, // set the people array to the new search results
-            totalAmountPeople: data.length,
-            isLoading: false,
-          });
-        }, 250);
-      })
-      .catch(error => {
+    .then(data => {
+      console.log(`FETCH DATA:`);
+      console.log(data);
+      window.setTimeout(() => {
         this.setState({
-          error: true,
+          people: data,
+          totalAmountPeople: data.length,
           isLoading: false,
         });
+      }, 250);
+    })
+    .catch(error => {
+      this.setState({
+        error: true,
+        isLoading: false,
       });
+    });
   }
 
   handleChange(e) {
@@ -72,24 +72,15 @@ class App extends Component {
     this.setState(prevState => ({ count: prevState.count + 6 }));
   }
 
-  // handleSearch(searchText) {
-  //   this.setState({
-  //     searchText: searchText,
-  //   });
-  // }
-
   handleSearch(searchText) {
     this.setState({
       searchText: searchText,
-      people: [], // reset the people array to an empty array
+      people: [],
     }, this.initiate);
   }
 
   handleSearchSubmit() {
     this.setState(
-      {
-        posts: [],
-      },
       this.initiate,
     );
   }
@@ -107,8 +98,6 @@ class App extends Component {
   }
 
   render() {
-    const count = 6;
-
     return (
       <section className="c-modules-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
         <div className="o-container">
@@ -132,7 +121,7 @@ class App extends Component {
                           loading={this.state.isLoading}
                           handleChange={this.handleChange.bind(this)}
                           handleShowMore={this.handleShowMore.bind(this)}
-                          count={count}
+                          count={this.state.count}
                         />
                       </div>
                     </Fragment>

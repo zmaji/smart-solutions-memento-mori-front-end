@@ -1,18 +1,20 @@
 class TableAPI {
-  static all(tableId, portalId) {
-    let url = `https://api.hubapi.com/cms/v3/hubdb/tables/${tableId}?portalId=${portalId}`;
+  static async all() {
+    let url = 'http://localhost:3000/getPeople';
+    console.log(`URL TABLEAPI:`);
+    console.log(url);
 
-    return fetch(url, {
-      credentials: 'same-origin',
-    }).then(this.handleStatus);
-  }
-
-  static handleStatus(response) {
-    if (!response.ok) {
-      // Fetch doesn't reject on HTTP error status
-      throw Error(`Request rejected with status ${response.status}`);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('An error occurred while awaiting the response:', error);
+      return null;
     }
-    return response;
   }
 }
 

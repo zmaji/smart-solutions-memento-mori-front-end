@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import onClickOutside from 'react-onclickoutside';
+import ItemsAPI from '../api/ItemsAPI';
 import TableAPI from '../api/TableAPI';
+import onClickOutside from 'react-onclickoutside';
 import Dropdown from './Dropdown';
 import SearchFilter from '../Components/SearchFilter';
 
@@ -9,7 +10,7 @@ class Filter extends Component {
     super(props);
 
     this.state = {
-      branches: [],
+      categories: [],
       error: false,
       isLoading: false,
       activeFilter: '',
@@ -17,6 +18,7 @@ class Filter extends Component {
   }
 
   componentDidMount() {
+    console.log(`Mount Filter Component`);
     this.fetchFilters();
   }
 
@@ -36,16 +38,21 @@ class Filter extends Component {
   }
 
   fetchFilters() {
+    console.log(`Enter fetchFilter function`);
     this.setState({ isLoading: true });
-    TableAPI.all(this.props.tableId, this.props.portalId)
-      .then(response => response.json())
+    TableAPI.all()
       .then(data => {
-        this.setState({
-          branches: [...this.state.branches, ...data.columns.find(x => x.name === 'category').options],
-        });
+        const categories = data.map(person => person.rol);
+        window.setTimeout(() => {
+          this.setState({
+            categories: categories,
+            isLoading: false,
+          });
+        }, 250);
+        console.log('Data:', data);
+        console.log('Current Categories:', this.state.categories);
       })
       .catch(error => {
-        console.log(error);
         this.setState({
           error: true,
           isLoading: false,
@@ -54,6 +61,8 @@ class Filter extends Component {
   }
 
   render() {
+    console.log(`CATEGORIES`);
+    console.log(this.state.categories);
     return (
       <div className={`c-modules-filter`}>
         <div className="c-modules-filter__wrapper">
@@ -61,17 +70,17 @@ class Filter extends Component {
             handleClick={this.handleClick.bind(this)}
             handleChange={this.props.handleChange}
             target="currentCategories"
-            items={this.state.branches}
+            items={this.state.categories}
             currentElements={this.props.currentCategories}
             active={this.state.activeFilter === 'currentCategories'}
             type="categories"
-            title="Categorieën"
+            title="Categories"
             isLoading={this.props.isLoading}
           />
         </div>
         <SearchFilter
           searchText={this.props.searchText}
-          labels={this.props.labels}
+          // labels={this.props.labels}
           onSearch={this.props.onSearch}
           onSubmit={this.props.onSubmit}
           placeholder={this.props.placeholder}
