@@ -28,13 +28,16 @@ class App extends Component {
 
   fetchPosts() {
     this.setState({ isLoading: true });
-    ItemsAPI.all(this.state)
+    ItemsAPI.all({
+      searchText: this.state.searchText,
+      count: this.state.count
+    })
       .then(data => {
         console.log(`FETCH DATA:`);
         console.log(data);
         window.setTimeout(() => {
           this.setState({
-            people: [...this.state.people, ...data],
+            people: data, // set the people array to the new search results
             totalAmountPeople: data.length,
             isLoading: false,
           });
@@ -69,10 +72,17 @@ class App extends Component {
     this.setState(prevState => ({ count: prevState.count + 6 }));
   }
 
+  // handleSearch(searchText) {
+  //   this.setState({
+  //     searchText: searchText,
+  //   });
+  // }
+
   handleSearch(searchText) {
     this.setState({
       searchText: searchText,
-    });
+      people: [], // reset the people array to an empty array
+    }, this.initiate);
   }
 
   handleSearchSubmit() {
