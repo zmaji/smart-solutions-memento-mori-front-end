@@ -1,7 +1,7 @@
-class TableAPI {
+class CategoriesAPI {
   static async all() {
     let url = 'http://localhost:3000/getPeople';
-    console.log(`URL TABLEAPI:`);
+    console.log(`URL CategoriesAPI:`);
     console.log(url);
 
     try {
@@ -18,4 +18,4 @@ class TableAPI {
   }
 }
 
-export default TableAPI;
+export default CategoriesAPI;

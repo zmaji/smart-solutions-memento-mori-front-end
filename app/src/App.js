@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import ItemsAPI from './api/ItemsAPI'
+import PeopleAPI from './api/PeopleAPI'
 import Loader from './Components/Loader';
 import Cards from './Components/Cards';
 import Filter from './Containers/Filter';
@@ -28,9 +28,10 @@ class App extends Component {
 
   fetchPosts() {
     this.setState({ isLoading: true });
-    ItemsAPI.all({
+    PeopleAPI.all({
       searchText: this.state.searchText,
-      count: this.state.count
+      count: this.state.count,
+      categories: this.state.currentCategories,
     })
     .then(data => {
       console.log(`FETCH DATA:`);
@@ -53,19 +54,21 @@ class App extends Component {
 
   handleChange(e) {
     let currentElements = [...this.state[e.currentTarget.dataset.target]];
-
+  
     if (currentElements.includes(e.currentTarget.name)) {
       currentElements = currentElements.filter(item => item !== e.currentTarget.name);
     } else {
       currentElements.push(e.currentTarget.name);
     }
-
-    this.setState(() => {
-      return {
-        [e.currentTarget.dataset.target]: currentElements,
-        posts: [],
-      };
-    }, this.initiate);
+  
+    const target = e.currentTarget.dataset.target;
+  
+    this.setState({
+      [target]: currentElements,
+      people: [],
+    }, () => {
+      this.initiate();
+    });
   }
 
   handleShowMore(e) {
@@ -89,10 +92,8 @@ class App extends Component {
     this.setState(() => {
       return {
         currentCategories: [],
-        // currentLocations: [],
-        // currentYears: [],
         searchText: '',
-        posts: [],
+        people: [],
       };
     }, this.initiate);
   }
@@ -131,10 +132,10 @@ class App extends Component {
                         <Loader />
                       ) : (
                         <div className="c-modules-overview__no-posts">
-                          {'No results'}
+                          {'Geen resultaten gevonden'}
                           <br />
                           <div className="c-modules-overview__reset" onClick={this.handleReset.bind(this)}>
-                            Reset filters
+                            Filters resetten
                           </div>
                         </div>
                       )}

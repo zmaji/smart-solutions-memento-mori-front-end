@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ItemsAPI from '../api/ItemsAPI';
-import TableAPI from '../api/TableAPI';
+import CategoriesAPI from '../api/CategoriesAPI';
 import onClickOutside from 'react-onclickoutside';
 import Dropdown from './Dropdown';
 import SearchFilter from '../Components/SearchFilter';
@@ -18,7 +17,6 @@ class Filter extends Component {
   }
 
   componentDidMount() {
-    console.log(`Mount Filter Component`);
     this.fetchFilters();
   }
 
@@ -40,9 +38,9 @@ class Filter extends Component {
   fetchFilters() {
     console.log(`Enter fetchFilter function`);
     this.setState({ isLoading: true });
-    TableAPI.all()
+    CategoriesAPI.all()
       .then(data => {
-        const categories = data.map(person => person.rol);
+        const categories = [...new Set(data.map(person => person.rol))];
         window.setTimeout(() => {
           this.setState({
             categories: categories,
@@ -61,8 +59,6 @@ class Filter extends Component {
   }
 
   render() {
-    console.log(`CATEGORIES`);
-    console.log(this.state.categories);
     return (
       <div className={`c-modules-filter`}>
         <div className="c-modules-filter__wrapper">
