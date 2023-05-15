@@ -13,6 +13,7 @@ class Filter extends Component {
       error: false,
       isLoading: false,
       activeFilter: '',
+      isDropdownActive: false,
     };
   }
 
@@ -22,8 +23,6 @@ class Filter extends Component {
 
   handleClick(e) {
     const current = this.state.activeFilter;
-    console.log(e.currentTarget.dataset.target);
-    console.log(this.state.activeFilter);
     this.setState({
       activeFilter: e.currentTarget.dataset.target === current ? '' : e.currentTarget.dataset.target,
     });
@@ -70,13 +69,12 @@ class Filter extends Component {
             currentElements={this.props.currentCategories}
             active={this.state.activeFilter === 'currentCategories'}
             type="categories"
-            title="Categories"
+            title="Categorieën"
             isLoading={this.props.isLoading}
           />
         </div>
         <SearchFilter
           searchText={this.props.searchText}
-          // labels={this.props.labels}
           onSearch={this.props.onSearch}
           onSubmit={this.props.onSubmit}
           placeholder={this.props.placeholder}

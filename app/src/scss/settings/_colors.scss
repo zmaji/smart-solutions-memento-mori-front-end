@@ -7,13 +7,15 @@
 $black: #000;
 $white: #fff;
 
+$stichting-memento-mori-primary-color: #4e8b7f;
+
 $lighter-gray: rgb(239, 239, 239);
-$light-gray: #DDDDDD;
+$light-gray: #dddddd;
 $gray: #848484;
-$dark-gray: #2C2A2A;
+$dark-gray: #2c2a2a;
 $almost-black: #212020;
 
-$border-light-gray: #DDDDDD;
+$border-light-gray: #dddddd;
 $border-gray: #bababa;
 
 $error: #bababa;
@@ -24,14 +26,18 @@ $secondary-color: #848484;
 $primary-font-color: $black;
 
 //Gradient colors
-$gradient-color-1: #DDDDDD;
+$gradient-color-1: #dddddd;
 $gradient-color-2: #000;
 $gradient-color-3: #848484;
 $gradient-color-4: #bababa;
-$gradient-color-5: #2C2A2A;
+$gradient-color-5: #2c2a2a;
 //Gradients
-$gradient-45deg: linear-gradient(45deg, $gradient-color-1 0%, $gradient-color-2 50%, $gradient-color-3 100%);
-
+$gradient-45deg: linear-gradient(
+  45deg,
+  $gradient-color-1 0%,
+  $gradient-color-2 50%,
+  $gradient-color-3 100%
+);
 
 //Theme colors
 $theme-color-1: $black;
@@ -39,7 +45,6 @@ $theme-color-2: $gray;
 $theme-color-3: $light-gray;
 $theme-color-4: $dark-gray;
 $theme-color-5: $border-gray;
-
 
 // forms
 $checkbox: $gray;

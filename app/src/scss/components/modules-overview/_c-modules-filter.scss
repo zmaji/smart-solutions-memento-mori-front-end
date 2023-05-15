@@ -2,8 +2,7 @@
   $root: &;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 3.75rem;
+  margin-bottom: 3rem;
 
   @include breakpoint(small only) {
     margin-bottom: 2rem;
@@ -63,20 +62,20 @@
       margin-right: 0;
     }
 
-    &:hover {
+    &.active {
       @include breakpoint(medium) {
         #{$root}__dropdown-title {
           color: $white;
           fill: $white;
           background: $primary-color;
         }
-  
+
         #{$root}__container {
           display: block;
           padding: 2.5rem 1.25rem;
           opacity: 1;
         }
-  
+
         #{$root}__chevron {
           transform: rotate(180deg);
         }
@@ -92,11 +91,9 @@
     bottom: 0;
     border-top: 0.625rem solid $white;
     transform: translateY(100%);
-    background: $almost-black;
-    overflow-y: scroll;
     z-index: 3;
     opacity: 0;
-    min-width: rem-calc(200);
+    min-width: rem-calc(700);
     max-height: rem-calc(400);
 
     @include breakpoint(medium) {
@@ -109,8 +106,9 @@
     }
 
     &.active {
-      display: block;
-      padding: 2.5rem 1.25rem;
+      display: flex; /* Changed from 'block' to 'flex' */
+      flex-wrap: wrap; /* Allow items to wrap if needed */
+      padding: 1rem 1.25rem;
       opacity: 1;
     }
   }
@@ -121,14 +119,10 @@
     margin-left: 0.5rem;
     margin-top: 2px;
   }
-  
+
   &__checkbox {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    line-height: 1.2;
-    width: 100%;
-    margin-bottom: 0.75rem;
+    margin-right: 1rem; /* Add margin between checkboxes */
+    margin-bottom: 0.75rem; /* Adjust margin-bottom if necessary */
 
     &:last-child {
       margin-bottom: 0;
@@ -140,7 +134,7 @@
     display: none;
 
     &:checked + .c-modules-filter__label::after {
-      content: url('https://f.hubspotusercontent10.net/hubfs/663810/check-darkblue.svg');
+      content: url("https://f.hubspotusercontent10.net/hubfs/663810/check-darkblue.svg");
       @include square(0.825rem);
     }
 
@@ -155,7 +149,7 @@
   }
 
   &__label {
-    color: $white;
+    color: $black;
     position: relative;
     cursor: pointer;
     padding-left: 2rem;
@@ -173,7 +167,7 @@
       position: absolute;
       background: $black;
       border: 1px solid $white;
-      content: '';
+      content: "";
       top: 0.125rem;
       left: 0;
 
@@ -185,7 +179,7 @@
 
     &::after {
       position: absolute;
-      content: '';
+      content: "";
       left: 4px;
       top: 2px;
     }

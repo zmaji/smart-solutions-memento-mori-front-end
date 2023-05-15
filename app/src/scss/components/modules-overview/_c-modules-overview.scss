@@ -2,6 +2,9 @@
   $root: &;
 
   &__posts {
+    display: flex;
+    flex-wrap: wrap;
+
     @include breakpoint(medium) {
       width: calc(100% + 1rem);
       margin: 0 -0.5rem;
@@ -10,11 +13,10 @@
 
   &__post {
     margin-bottom: 1rem;
-    width: 100%;
 
     @include breakpoint(medium) {
       margin: 0 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       width: calc(100% / 2 - 1rem);
     }
 
@@ -94,6 +96,7 @@
     width: calc(100% - 2.5rem);
     height: 5px;
     margin: 0 auto;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
     background: $light-gray;
     position: relative;
@@ -116,7 +119,7 @@
     width: 100%;
     text-align: center;
   }
-  
+
   &__reset {
     cursor: pointer;
     color: $primary-color;

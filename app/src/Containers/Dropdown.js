@@ -5,7 +5,7 @@ class Dropdown extends Component {
     return (
       <div className={`c-modules-filter__dropdown`}>
         <div
-          className={`c-modules-filter__dropdown-title ${this.props.active ? 'active' : ''}`}
+          className={`c-modules-filter__dropdown-title`}
           data-target={this.props.target}
           onClick={this.props.handleClick}
         >
@@ -15,9 +15,6 @@ class Dropdown extends Component {
           </svg>
         </div>
         <div className={`c-modules-filter__container ${this.props.active ? 'active' : ''}`}>
-        <div className="c-modules-filter__reset-title">
-          Clear filters
-          </div>
             {this.props.items
               .map(item => {
                 return (

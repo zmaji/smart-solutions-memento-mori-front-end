@@ -11,7 +11,7 @@ const Cards = props => {
   };
 
   return (
-    <div className="c-modules-overview__posts u-flex u-flex-v-start">
+    <div className="c-modules-overview__posts">
       {props.people.slice(0, visibleCards).map(person => {
         return <Card key={person.person_id} card={person} />;
       })}
@@ -25,11 +25,11 @@ const Cards = props => {
           </div>
 
           <div className="c-modules-overview__posts-count">
-            {visibleCards} of {props.people.length}
+            {visibleCards} van de {props.people.length} personen
           </div>
 
           <div className={`c-modules-overview__toggle-button u-flex ${activeClass}`} onClick={handleShowMore}>
-            <div className="c-modules-overview__show-more">Bekijk meer</div>
+            <div className="c-modules-overview__show-more">Laad meer</div>
             <div className="c-modules-overview__show-less">Alles geladen</div>
             <svg className="c-icon c-modules-overview__icon">
               <use href="#arrow-down" xlinkHref="#arrow-down" />
