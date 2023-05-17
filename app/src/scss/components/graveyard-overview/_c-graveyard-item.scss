@@ -1,37 +1,27 @@
-.c-modules-item {
+.c-graveyard-item {
   $root: &;
 
-  &:hover {
-    #{$root}__content-container {
-      background: $white;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 
-    #{$root}__subtitle {
-      color: $secondary-color;
-    }
-
-    #{$root}__title {
-      color: $primary-color;
-    }
-
-    #{$root}__button {
-      color: $black;
-      fill: $black;
-    }
-
-    #{$root}__icon {
-      transform: translateX(0.25rem);
-    }
+  &--max-height {
+    max-height: 30rem;
   }
 
   &__content-container {
     @include transition();
-    padding: 2rem 1rem;
-    background: $stichting-memento-mori-primary-color;
 
     @include breakpoint(medium) {
-      padding: 2.5rem 2rem;
+      padding: 2rem 2rem 1rem 2rem;
     }
+  }
+
+  &__button-container {
+    @include transition();
+    background-color: $white;
+    width: calc(100% + 2px);
+    margin: auto -1px -1px;
   }
 
   &__subtitle {
@@ -86,7 +76,7 @@
 
   &__description {
     @include transition();
-    color: $black;
+    color: $white;
     font-size: rem-calc(14);
     font-weight: 500;
     line-height: 1.2;
@@ -95,6 +85,7 @@
   }
 
   &__show-more-container {
+    @include transition();
     margin-top: 2rem;
     div {
       text-align: left;
@@ -108,5 +99,6 @@
 
   &__icon {
     margin-left: 0.5rem;
+    margin-top: 0.3rem;
   }
 }

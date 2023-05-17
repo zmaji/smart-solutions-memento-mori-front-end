@@ -11,20 +11,20 @@ const SearchFilter = props => {
   }
 
   return (
-    <div className={`c-modules-search-filter`} onClick={props.handleClickOutside}>
+    <div className={`c-graveyard-search-filter`} onClick={props.handleClickOutside}>
       <form onSubmit={handleSubmit}>
         <input
           type="search"
           placeholder='Zoeken'
           value={props.searchText}
           onChange={handleSearch}
-          className="c-modules-search-filter__search-field"
+          className="c-graveyard-search-filter__search-field"
         />
         <input
           type="submit"
           value=""
           disabled={props.postsLoading ? true : false}
-          className="c-modules-search-filter__submit"
+          className="c-graveyard-search-filter__submit"
         />
       </form>
     </div>

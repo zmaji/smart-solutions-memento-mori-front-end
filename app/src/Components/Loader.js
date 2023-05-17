@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <div className="c-modules-loader">
+    <div className="c-graveyard-loader">
       <div className="rect1"></div>
       <div className="rect2"></div>
       <div className="rect3"></div>

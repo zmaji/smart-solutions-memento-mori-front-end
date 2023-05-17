@@ -59,8 +59,8 @@ class Filter extends Component {
 
   render() {
     return (
-      <div className={`c-modules-filter`}>
-        <div className="c-modules-filter__wrapper">
+      <div className={`c-graveyard-filter`}>
+        <div className="c-graveyard-filter__wrapper">
           <Dropdown
             handleClick={this.handleClick.bind(this)}
             handleChange={this.props.handleChange}

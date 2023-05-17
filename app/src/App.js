@@ -99,12 +99,12 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <section className="c-modules-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
+    return (  
+      <section className="c-graveyard-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
         <div className="o-container">
-          <div className="u-squeeze u-squeeze--">
-            <div className="c-modules-overview__container">
-              <div className="c-modules-overview__app-container">
+          <div className="u-squeeze u-squeeze--xl">
+            <div className="c-graveyard-overview__container">
+              <div className="c-graveyard-overview__app-container">
               <Filter
                 currentCategories={this.state.currentCategories}
                 handleChange={this.handleChange.bind(this)}
@@ -112,10 +112,10 @@ class App extends Component {
                 onSearch={this.handleSearch.bind(this)}
                 onSubmit={this.handleSearchSubmit.bind(this)}
               />
-                <div className="c-modules-overview__posts-wrapper">
+                <div className="c-graveyard-overview__posts-wrapper">
                   {this.state.people.length > 0 ? (
                     <Fragment>
-                      <div className="c-modules-overview__posts-container">
+                      <div className="c-graveyard-overview__posts-container">
                         <Cards
                           people={this.state.people}
                           nrAll={this.state.totalAmountPeople}
@@ -131,10 +131,10 @@ class App extends Component {
                       {this.state.isLoading ? (
                         <Loader />
                       ) : (
-                        <div className="c-modules-overview__no-posts">
+                        <div className="c-graveyard-overview__no-posts">
                           {'Geen resultaten gevonden'}
                           <br />
-                          <div className="c-modules-overview__reset" onClick={this.handleReset.bind(this)}>
+                          <div className="c-graveyard-overview__reset" onClick={this.handleReset.bind(this)}>
                             Filters resetten
                           </div>
                         </div>

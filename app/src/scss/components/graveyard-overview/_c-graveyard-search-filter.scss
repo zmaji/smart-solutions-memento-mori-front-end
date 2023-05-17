@@ -1,4 +1,4 @@
-.c-modules-search-filter {
+.c-graveyard-search-filter {
   $root: &;
   position: relative;
   margin-left: auto;
@@ -47,7 +47,7 @@
       background-color: $black;
       background-size: 1.375rem;
       border: 0;
-      height: 100%;
+      height: rem-calc(50);
       width: rem-calc(48);
       font-size: 0;
       cursor: pointer;
