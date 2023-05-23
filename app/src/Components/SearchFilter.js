@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchFilter = props => {
   function handleSearch(e) {
-    props.onSearch(e.target.value);
+    props.onSearch(e.target.value, props.people);
   }
 
   function handleSubmit(e) {

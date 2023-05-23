@@ -104,8 +104,8 @@ class App extends Component {
     );
   }
 
-  handleShowMore(e) {
-    this.setState(prevState => ({ count: prevState.count + 6 }));
+  handleShowMore(count) {
+    this.setState({ count });
   }
 
   handleSearch(searchText) {

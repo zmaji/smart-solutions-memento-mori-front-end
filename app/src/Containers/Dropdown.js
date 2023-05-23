@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ChevronDown from '../icons/chevron-down.svg'
+import ChevronUp from '../icons/chevron-up.svg'
 
 class Dropdown extends Component {
   render() {
@@ -11,7 +13,7 @@ class Dropdown extends Component {
         >
           {this.props.title}
           <svg className="c-icon c-graveyard-filter__chevron">
-            <use href="#chevron-down" xlinkHref="#chevron-down" />
+            <use href={this.props.active ? ChevronUp + '#chevron-up' : ChevronDown + '#chevron-down'}/>
           </svg>
         </div>
         <div className={`c-graveyard-filter__container ${this.props.active ? 'active' : ''}`}>

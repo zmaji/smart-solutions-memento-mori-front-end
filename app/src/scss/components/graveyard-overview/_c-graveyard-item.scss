@@ -108,5 +108,16 @@
   &__icon {
     margin-left: 0.5rem;
     margin-top: 0.3rem;
+
+    &--check {
+      margin-top: 0rem;
+    }
+
+    &--cross {
+      margin-left: 2px;
+      width: 0.85rem;
+      height: 0.85rem;
+      margin-bottom: 0.15rem;
+    }
   }
 }

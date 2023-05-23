@@ -38,7 +38,6 @@ class Filter extends Component {
       });
     }
   
-    // Add the following lines to clear the other checkbox
     if (e.currentTarget.dataset.target === 'currentCategories') {
       this.setState({ activeSort: '' });
     } else if (e.currentTarget.dataset.target === 'currentSort') {

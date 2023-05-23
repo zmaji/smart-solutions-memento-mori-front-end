@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ChevronDown from '../icons/chevron-down.svg'
+import ChevronUp from '../icons/chevron-up.svg'
 
 class Sort extends Component {
   
@@ -12,7 +14,7 @@ class Sort extends Component {
         >
           {this.props.title}
           <svg className="c-icon c-graveyard-sort__chevron">
-            <use href="#chevron-down" xlinkHref="#chevron-down" />
+            <use href={this.props.active ? ChevronUp + '#chevron-up' : ChevronDown + '#chevron-down'}/>
           </svg>
         </div>
         <div className={`c-graveyard-sort__container ${this.props.active ? 'active' : ''}`}>

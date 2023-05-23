@@ -132,7 +132,7 @@
     display: none;
 
     &:checked + .c-graveyard-filter__label::after {
-      content: url("https://f.hubspotusercontent10.net/hubfs/663810/check-darkblue.svg");
+      content: url("../../../icons/check-darkblue.svg");
       @include square(0.825rem);
     }
 
