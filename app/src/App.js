@@ -13,6 +13,7 @@ class App extends Component {
       isLoading: true,
       people: [],
       currentCategories: [],
+      currentSort: '',
       searchText: '',
       count: 6,
     };
@@ -34,12 +35,33 @@ class App extends Component {
       categories: this.state.currentCategories,
     })
     .then(data => {
-      console.log(`FETCH DATA:`);
-      console.log(data);
+      let sortedData = data;
+      let currentSort = this.state.currentSort[this.state.currentSort.length -1];
+
+      // Sort the data based on the currentSort value
+      if (currentSort == 'Grafnummer') {
+        console.log(`Sorting by Grafnummer`);
+        sortedData.sort((a, b) => a.grave_id.localeCompare(b.grave_id));
+      } else if (currentSort == "Naam oplopend" || currentSort == "Naam aflopend") {
+        sortedData.sort((a, b) => {
+          const achternaamA = a.achternaam.replace(/[()]/g, '');
+          const achternaamB = b.achternaam.replace(/[()]/g, '');
+        
+          if (currentSort == "Naam oplopend") {
+            return achternaamA.localeCompare(achternaamB);
+          } else {
+            return achternaamB.localeCompare(achternaamA);
+          }
+        });
+      } else if (currentSort == "Datum overlijden") {
+        console.log(`Sorting by Datum overlijden`);
+        sortedData.sort((a, b) => a.datum_overlijden.localeCompare(b.datum_overlijden));
+      }
+      
       window.setTimeout(() => {
         this.setState({
-          people: data,
-          totalAmountPeople: data.length,
+          people: sortedData, // Set the sorted data in the state
+          totalAmountPeople: sortedData.length,
           isLoading: false,
         });
       }, 250);
@@ -51,24 +73,35 @@ class App extends Component {
       });
     });
   }
+  
 
   handleChange(e) {
-    let currentElements = [...this.state[e.currentTarget.dataset.target]];
+    const currentTargetName = e.currentTarget.name;
+    const target = e.currentTarget.dataset.target;
+    const currentElements = [...this.state[target]];
   
-    if (currentElements.includes(e.currentTarget.name)) {
-      currentElements = currentElements.filter(item => item !== e.currentTarget.name);
+    if (currentElements.includes(currentTargetName)) {
+      currentElements.splice(currentElements.indexOf(currentTargetName), 1);
     } else {
-      currentElements.push(e.currentTarget.name);
+      currentElements.push(currentTargetName);
+  
+      // Uncheck the first checkbox if it is already checked
+      if (currentElements.length > 1 && target === 'currentSort') {
+        const firstCheckboxName = currentElements[0];
+        const firstCheckboxIndex = currentElements.indexOf(firstCheckboxName);
+        currentElements.splice(firstCheckboxIndex, 1);
+      }
     }
   
-    const target = e.currentTarget.dataset.target;
-  
-    this.setState({
-      [target]: currentElements,
-      people: [],
-    }, () => {
-      this.initiate();
-    });
+    this.setState(
+      {
+        [target]: currentElements,
+        people: [],
+      },
+      () => {
+        this.initiate();
+      }
+    );
   }
 
   handleShowMore(e) {
@@ -107,6 +140,7 @@ class App extends Component {
               <div className="c-graveyard-overview__app-container">
               <Filter
                 currentCategories={this.state.currentCategories}
+                currentSort={this.state.currentSort}
                 handleChange={this.handleChange.bind(this)}
                 searchText={this.state.searchText}
                 onSearch={this.handleSearch.bind(this)}

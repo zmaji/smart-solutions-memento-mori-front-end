@@ -13,28 +13,13 @@ const Post = ({ card }) => {
   const formatDate = dateString => new Date(dateString).toLocaleDateString('nl-NL');
 
   return (
-    <div className={`c-graveyard-overview__post c-graveyard-item ${!showMore ? 'c-graveyard-item--max-height' : ''}`}>
+    <div className={`c-graveyard-overview__post c-graveyard-item`}>
       <div className="c-graveyard-item__content-container">
         <h2 className="c-graveyard-item__title--big c-graveyard-item__title--round">{card.grave_id}</h2>
         <h2 className="c-graveyard-item__title">{card.voornamen} {card.achternaam}</h2>
-        <h2 className="c-graveyard-item__description">{card.roepnaam && card.roepnaam !== card.voornamen ? `(${card.roepnaam})` : '(Geen roepna(a)m(en) bekend)'}</h2>
+        <h2 className="c-graveyard-item__description">{card.roepnaam && card.roepnaam !== card.voornamen ? `(${card.roepnaam})` : null}</h2>
         <div className="c-graveyard-item__description">{formatDate(card.geboortedatum)} - {formatDate(card.datum_overlijden)}</div>
-        <h2 className="c-graveyard-item__subtitle">{card.functie || 'Geen functie bekend'}</h2>
-        {showMore && (
-          <div className="c-graveyard-item__show-more-container">
-            <div className="c-graveyard-item__description">Geslacht: {card.geslacht || 'Geen geslacht bekend'}</div>
-            <div className="c-graveyard-item__description">Leeftijd: {card.leeftijd_tijdens_overlijden || 'Geen leeftijd bekend'}</div>
-            <div className="c-graveyard-item__description">Rol: {card.rol || 'Geen rol bekend'}</div>
-            <div className="c-graveyard-item__description">Geboorteplaats: {card.geboorteplaats || 'Geen geboorteplaats bekend'}</div>
-            <div className="c-graveyard-item__description">Provincie: {card.provincie || 'Geen provincie bekend'}</div>
-            <div className="c-graveyard-item__description">Vader: {'Geen vader bekend'}</div>
-            <div className="c-graveyard-item__description">Moeder: {'Geen moeder bekend'}</div>
-            <div className="c-graveyard-item__description">Reden overlijden: {card.reden_overlijden || 'Geen reden overlijden bekend'}</div>
-            <div className="c-graveyard-item__description">Pupil van: {card.pupil_vanaf || 'Geen datum bekend'}</div>
-            <div className="c-graveyard-item__description">Pupil tot: {card.pupil_tot || 'Geen datum bekend'}</div>
-            <div className="c-graveyard-item__description">Bijzonderheden: {card.bijzonderheden || 'Geen bijzonderheden bekend'}</div>
-          </div>
-        )}
+        <h2 className="c-graveyard-item__subtitle">{card.functie || null}</h2>
       </div>
 
       <div className="c-graveyard-item__button-container">
@@ -44,6 +29,62 @@ const Post = ({ card }) => {
             <use href={showMore ? ChevronUp + '#chevron-up' : ChevronDown + '#chevron-down'}/>
           </svg>
         </div>
+
+        {showMore && (
+          <div className="c-graveyard-item__show-more-container">
+            {card.geslacht && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Geslacht:</strong> {card.geslacht}
+              </div>
+            )}
+            {card.leeftijd_tijdens_overlijden && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Leeftijd:</strong> {card.leeftijd_tijdens_overlijden}
+              </div>
+            )}
+            {card.rol && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Rol:</strong> {card.rol}
+              </div>
+            )}
+            {card.geboorteplaats && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Geboorteplaats:</strong> {card.geboorteplaats}
+              </div>
+            )}
+            {card.provincie && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Provincie:</strong> {card.provincie}
+              </div>
+            )}
+            <div className="c-graveyard-item__description--black">
+              <strong>Vader:</strong> Vader niet bekend
+            </div>
+            <div className="c-graveyard-item__description--black">
+              <strong>Moeder:</strong> Moeder niet bekend
+            </div>
+            {card.reden_overlijden && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Reden overlijden:</strong> {card.reden_overlijden}
+              </div>
+            )}
+            {card.pupil_vanaf && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Pupil van:</strong> {card.pupil_vanaf}
+              </div>
+            )}
+            {card.pupil_tot && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Pupil tot:</strong> {card.pupil_tot}
+              </div>
+            )}
+            {card.bijzonderheden && (
+              <div className="c-graveyard-item__description--black">
+                <strong>Bijzonderheden:</strong> {card.bijzonderheden}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

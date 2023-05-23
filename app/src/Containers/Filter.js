@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CategoriesAPI from '../api/CategoriesAPI';
 import onClickOutside from 'react-onclickoutside';
 import Dropdown from './Dropdown';
+import Sort from './Sort';
 import SearchFilter from '../Components/SearchFilter';
 
 class Filter extends Component {
@@ -13,6 +14,7 @@ class Filter extends Component {
       error: false,
       isLoading: false,
       activeFilter: '',
+      activeSort: '',
       isDropdownActive: false,
     };
   }
@@ -22,16 +24,33 @@ class Filter extends Component {
   }
 
   handleClick(e) {
-    const current = this.state.activeFilter;
-    this.setState({
-      activeFilter: e.currentTarget.dataset.target === current ? '' : e.currentTarget.dataset.target,
-    });
+    const currentFilter = this.state.activeFilter;
+    const currentSort = this.state.activeSort;
+  
+    if (e.currentTarget.dataset.target === currentFilter) {
+      this.setState({ activeFilter: '' });
+    } else if (e.currentTarget.dataset.target === currentSort) {
+      this.setState({ activeSort: '' });
+    } else {
+      this.setState({
+        activeFilter: e.currentTarget.dataset.target,
+        activeSort: e.currentTarget.dataset.target,
+      });
+    }
+  
+    // Add the following lines to clear the other checkbox
+    if (e.currentTarget.dataset.target === 'currentCategories') {
+      this.setState({ activeSort: '' });
+    } else if (e.currentTarget.dataset.target === 'currentSort') {
+      this.setState({ activeFilter: '' });
+    }
   }
 
   handleClickOutside(e) {
     console.log('Clicking outside');
     console.log(e.currentTarget);
     this.setState({ activeFilter: '' });
+    this.setState({ activeSort: '' });
   }
 
   fetchFilters() {
@@ -70,6 +89,17 @@ class Filter extends Component {
             active={this.state.activeFilter === 'currentCategories'}
             type="categories"
             title="Categorieën"
+            isLoading={this.props.isLoading}
+          />
+          <Sort
+            handleClick={this.handleClick.bind(this)}
+            handleChange={this.props.handleChange}
+            target="currentSort"
+            items={["Grafnummer", "Naam oplopend", "Naam aflopend", "Datum overlijden"]}
+            currentElements={this.props.currentSort}
+            active={this.state.activeSort === 'currentSort'}
+            type="sort"
+            title="Sorteren"
             isLoading={this.props.isLoading}
           />
         </div>

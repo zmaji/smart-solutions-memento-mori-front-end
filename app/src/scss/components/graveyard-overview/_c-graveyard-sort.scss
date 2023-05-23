@@ -1,22 +1,9 @@
-.c-graveyard-filter {
+.c-graveyard-sort {
   $root: &;
-  display: flex;
-  flex-wrap: wrap;
   margin-bottom: 3rem;
 
   @include breakpoint(small only) {
     margin-bottom: 2rem;
-  }
-
-  &__wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-
-    @include breakpoint(medium) {
-      width: calc(100% - 450px);
-      padding-right: 2rem;
-    }
   }
 
   &__dropdown-title {
@@ -101,13 +88,14 @@
 
     &.active {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       padding: 1rem 1.25rem;
       opacity: 1;
       overflow: visible;
       pointer-events: all;
       height: 100%;
       margin-top: 0.5rem;
+      margin-bottom: 4.5rem;
     }
   }
 
@@ -131,16 +119,16 @@
     position: relative;
     display: none;
 
-    &:checked + .c-graveyard-filter__label::after {
+    &:checked + .c-graveyard-sort__label::after {
       content: url("https://f.hubspotusercontent10.net/hubfs/663810/check-darkblue.svg");
       @include square(0.825rem);
     }
 
-    &:disabled + .c-graveyard-filter__label::before {
+    &:disabled + .c-graveyard-sort__label::before {
       background: $black;
     }
 
-    &:checked + .c-graveyard-filter__label::before {
+    &:checked + .c-graveyard-sort__label::before {
       background: $white;
       border: 1px solid $white;
     }
@@ -203,7 +191,7 @@
     margin-right: 0.5rem;
   }
 
-  &__filter-label {
+  &__sort-label {
     font-size: 1rem;
     margin: 1rem 0;
     transform: translateY(1rem);
