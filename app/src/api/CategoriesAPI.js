@@ -1,8 +1,6 @@
 class CategoriesAPI {
   static async all() {
-    let url = 'http://localhost:3000/getPeople';
-    console.log(`URL CategoriesAPI:`);
-    console.log(url);
+    const url = 'http://localhost:3000/getPeople';
 
     try {
       const response = await fetch(url);
@@ -12,8 +10,7 @@ class CategoriesAPI {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('An error occurred while awaiting the response:', error);
-      return null;
+      throw new Error('An error occurred while fetching categories: ' + error.message);
     }
   }
 }

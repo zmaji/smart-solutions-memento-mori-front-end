@@ -3,30 +3,17 @@ class PeopleAPI {
     const { searchText, count, categories } = params;
     let url = 'http://localhost:3000/getPeople';
 
-    console.log(`CATEGORIES:`)
-    console.log(categories)
-
     if (searchText) {
-      url += `?count=${count}&search=${searchText}`;
+      const queryParams = [`count=${count}`, `search=${searchText}`];
       if (categories && categories.length >= 1) {
-        url += `&category=${categories[0]}`;
-        if (categories.length > 1) {
-          for (let i = 1; i < categories.length; i++) {
-            url += `&category=${categories[i]}`;
-          }
-        }
+        const categoryParams = categories.map(category => `category=${category}`);
+        queryParams.push(...categoryParams);
       }
+      url += `?${queryParams.join('&')}`;
     } else if (categories && categories.length >= 1) {
-      url += `?category=${categories[0]}`;
-      if (categories.length > 1) {
-        for (let i = 1; i < categories.length; i++) {
-          url += `&category=${categories[i]}`;
-        }
-      }
+      const categoryParams = categories.map(category => `category=${category}`);
+      url += `?${categoryParams.join('&')}`;
     }
-
-    console.log(`URL:`);
-    console.log(url);
 
     try {
       const response = await fetch(url);
@@ -36,12 +23,9 @@ class PeopleAPI {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('An error occurred while awaiting the response:', error);
-      return null;
+      throw new Error('An error occurred while fetching people: ' + error.message);
     }
   }
 }
 
 export default PeopleAPI;
-
-

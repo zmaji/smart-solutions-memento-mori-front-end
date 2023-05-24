@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PeopleAPI from './api/PeopleAPI'
+import PeopleAPI from './api/PeopleAPI';
 import Loader from './Components/Loader';
 import Cards from './Components/Cards';
 import Filter from './Containers/Filter';
@@ -17,6 +17,12 @@ class App extends Component {
       searchText: '',
       count: 6,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleShowMore = this.handleShowMore.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -28,78 +34,79 @@ class App extends Component {
   }
 
   fetchPosts() {
+    const { searchText, count, currentCategories, currentSort } = this.state;
+
     this.setState({ isLoading: true });
     PeopleAPI.all({
-      searchText: this.state.searchText,
-      count: this.state.count,
-      categories: this.state.currentCategories,
+      searchText,
+      count,
+      categories: currentCategories,
     })
-    .then(data => {
-      let sortedData = data;
-      let currentSort = this.state.currentSort[this.state.currentSort.length -1];
+      .then(data => {
+        let sortedPeople = this.sortData(currentSort, data);
 
-      // Sort the data based on the currentSort value
-      if (currentSort == 'Grafnummer') {
-        console.log(`Sorting by Grafnummer`);
-        sortedData.sort((a, b) => a.grave_id.localeCompare(b.grave_id));
-      } else if (currentSort == "Naam oplopend" || currentSort == "Naam aflopend") {
-        sortedData.sort((a, b) => {
-          const achternaamA = a.achternaam.replace(/[()]/g, '');
-          const achternaamB = b.achternaam.replace(/[()]/g, '');
-        
-          if (currentSort == "Naam oplopend") {
-            return achternaamA.localeCompare(achternaamB);
-          } else {
-            return achternaamB.localeCompare(achternaamA);
-          }
-        });
-      } else if (currentSort === "Datum overlijden aflopend") {
-        console.log("Sorting by Datum overlijden aflopend");
-        sortedData.sort((a, b) =>
-          new Date(b.datum_overlijden) - new Date(a.datum_overlijden)
-        );
-      } else if (currentSort === "Datum overlijden oplopend") {
-        console.log("Sorting by Datum overlijden oplopend");
-        sortedData.sort((a, b) =>
-          new Date(a.datum_overlijden) - new Date(b.datum_overlijden)
-        );
-      }
-      
-      window.setTimeout(() => {
+        window.setTimeout(() => {
+          this.setState({
+            people: sortedPeople,
+            totalAmountPeople: sortedPeople.length,
+            isLoading: false,
+          });
+        }, 250);
+      })
+      .catch(error => {
         this.setState({
-          people: sortedData, // Set the sorted data in the state
-          totalAmountPeople: sortedData.length,
+          error: true,
           isLoading: false,
-        });
-      }, 250);
-    })
-    .catch(error => {
-      this.setState({
-        error: true,
-        isLoading: false,
+        }); 
       });
-    });
   }
-  
+
+  sortData(currentSort, data) {
+    let sortedData = [...data];
+    currentSort = this.state.currentSort[this.state.currentSort.length - 1];
+
+    if (currentSort === 'Grafnummer') {
+      console.log(`Sorting by Grafnummer`);
+      sortedData.sort((a, b) => a.grave_id.localeCompare(b.grave_id));
+    } else if (currentSort === 'Naam oplopend' || currentSort === 'Naam aflopend') {
+      sortedData.sort((a, b) => {
+        const achternaamA = a.achternaam.replace(/[()]/g, '');
+        const achternaamB = b.achternaam.replace(/[()]/g, '');
+
+        if (currentSort === 'Naam oplopend') {
+          return achternaamA.localeCompare(achternaamB);
+        } else {
+          return achternaamB.localeCompare(achternaamA);
+        }
+      });
+    } else if (currentSort === 'Datum overlijden aflopend') {
+      console.log('Sorting by Datum overlijden aflopend');
+      sortedData.sort((a, b) => new Date(b.datum_overlijden) - new Date(a.datum_overlijden));
+    } else if (currentSort === 'Datum overlijden oplopend') {
+      console.log('Sorting by Datum overlijden oplopend');
+      sortedData.sort((a, b) => new Date(a.datum_overlijden) - new Date(b.datum_overlijden));
+    }
+
+    return sortedData;
+  }
 
   handleChange(e) {
     const currentTargetName = e.currentTarget.name;
     const target = e.currentTarget.dataset.target;
     const currentElements = [...this.state[target]];
-  
+
     if (currentElements.includes(currentTargetName)) {
       currentElements.splice(currentElements.indexOf(currentTargetName), 1);
     } else {
       currentElements.push(currentTargetName);
-  
-      // Uncheck the first checkbox if it is already checked
+
       if (currentElements.length > 1 && target === 'currentSort') {
         const firstCheckboxName = currentElements[0];
         const firstCheckboxIndex = currentElements.indexOf(firstCheckboxName);
         currentElements.splice(firstCheckboxIndex, 1);
       }
     }
-  
+
     this.setState(
       {
         [target]: currentElements,
@@ -116,66 +123,70 @@ class App extends Component {
   }
 
   handleSearch(searchText) {
-    this.setState({
-      searchText: searchText,
-      people: [],
-    }, this.initiate);
-  }
-
-  handleSearchSubmit() {
     this.setState(
-      this.initiate,
+      {
+        searchText,
+        people: [],
+      },
+      this.initiate
     );
   }
 
+  handleSearchSubmit() {
+    this.setState(this.initiate);
+  }
+
   handleReset(e) {
-    this.setState(() => {
-      return {
+    this.setState(
+      {
         currentCategories: [],
         searchText: '',
         people: [],
-      };
-    }, this.initiate);
+      },
+      this.initiate
+    );
   }
 
   render() {
-    return (  
+    const { currentCategories, currentSort, searchText, people, totalAmountPeople, isLoading, count } = this.state;
+
+    return (
       <section className="c-graveyard-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
         <div className="o-container">
           <div className="u-squeeze u-squeeze--xl">
             <div className="c-graveyard-overview__container">
               <div className="c-graveyard-overview__app-container">
-              <Filter
-                currentCategories={this.state.currentCategories}
-                currentSort={this.state.currentSort}
-                handleChange={this.handleChange.bind(this)}
-                searchText={this.state.searchText}
-                onSearch={this.handleSearch.bind(this)}
-                onSubmit={this.handleSearchSubmit.bind(this)}
-              />
+                <Filter
+                  currentCategories={currentCategories}
+                  currentSort={currentSort}
+                  handleChange={this.handleChange}
+                  searchText={searchText}
+                  onSearch={this.handleSearch}
+                  onSubmit={this.handleSearchSubmit}
+                />
                 <div className="c-graveyard-overview__posts-wrapper">
-                  {this.state.people.length > 0 ? (
+                  {people.length > 0 ? (
                     <Fragment>
                       <div className="c-graveyard-overview__posts-container">
                         <Cards
-                          people={this.state.people}
-                          nrAll={this.state.totalAmountPeople}
-                          loading={this.state.isLoading}
-                          handleChange={this.handleChange.bind(this)}
-                          handleShowMore={this.handleShowMore.bind(this)}
-                          count={this.state.count}
+                          people={people}
+                          nrAll={totalAmountPeople}
+                          loading={isLoading}
+                          handleChange={this.handleChange}
+                          handleShowMore={this.handleShowMore}
+                          count={count}
                         />
                       </div>
                     </Fragment>
                   ) : (
                     <Fragment>
-                      {this.state.isLoading ? (
+                      {isLoading ? (
                         <Loader />
                       ) : (
                         <div className="c-graveyard-overview__no-posts">
                           {'Geen resultaten gevonden'}
                           <br />
-                          <div className="c-graveyard-overview__reset" onClick={this.handleReset.bind(this)}>
+                          <div className="c-graveyard-overview__reset" onClick={this.handleReset}>
                             Filters resetten
                           </div>
                         </div>
