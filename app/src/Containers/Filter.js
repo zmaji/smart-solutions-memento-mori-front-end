@@ -94,7 +94,7 @@ class Filter extends Component {
             handleClick={this.handleClick.bind(this)}
             handleChange={this.props.handleChange}
             target="currentSort"
-            items={["Grafnummer", "Naam oplopend", "Naam aflopend", "Datum overlijden"]}
+            items={["Grafnummer", "Naam oplopend", "Naam aflopend", "Datum overlijden oplopend", "Datum overlijden aflopend"]}
             currentElements={this.props.currentSort}
             active={this.state.activeSort === 'currentSort'}
             type="sort"

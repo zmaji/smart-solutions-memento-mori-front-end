@@ -53,9 +53,16 @@ class App extends Component {
             return achternaamB.localeCompare(achternaamA);
           }
         });
-      } else if (currentSort == "Datum overlijden") {
-        console.log(`Sorting by Datum overlijden`);
-        sortedData.sort((a, b) => a.datum_overlijden.localeCompare(b.datum_overlijden));
+      } else if (currentSort === "Datum overlijden aflopend") {
+        console.log("Sorting by Datum overlijden aflopend");
+        sortedData.sort((a, b) =>
+          new Date(b.datum_overlijden) - new Date(a.datum_overlijden)
+        );
+      } else if (currentSort === "Datum overlijden oplopend") {
+        console.log("Sorting by Datum overlijden oplopend");
+        sortedData.sort((a, b) =>
+          new Date(a.datum_overlijden) - new Date(b.datum_overlijden)
+        );
       }
       
       window.setTimeout(() => {

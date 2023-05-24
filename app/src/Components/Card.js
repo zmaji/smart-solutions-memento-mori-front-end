@@ -21,7 +21,7 @@ const Post = ({ card }) => {
         <h2 className="c-graveyard-item__description">{card.roepnaam && card.roepnaam !== card.voornamen ? `(${card.roepnaam})` : null}</h2>
         <div className="c-graveyard-item__description">{formatDate(card.geboortedatum)} - {formatDate(card.datum_overlijden)}
           <svg className="c-icon c-graveyard-item__icon--cross">
-          <use href={Cross + '#cross'} />
+          <use xlinkHref={`${Cross}#cross`} />
           </svg>
         </div>
         <h2 className="c-graveyard-item__subtitle">{card.functie || null}</h2>
@@ -31,7 +31,7 @@ const Post = ({ card }) => {
         <div className="c-graveyard-item__button c-button" onClick={toggleShowMore}>
           {showMore ? 'Bekijk minder' : 'Bekijk meer'}
           <svg className="c-icon c-graveyard-item__icon c-button__icon">
-            <use href={showMore ? ChevronUp + '#chevron-up' : ChevronDown + '#chevron-down'}/>
+            <use xlinkHref={showMore ? `${ChevronUp}#chevron-up` : `${ChevronDown}#chevron-down`} />
           </svg>
         </div>
 
