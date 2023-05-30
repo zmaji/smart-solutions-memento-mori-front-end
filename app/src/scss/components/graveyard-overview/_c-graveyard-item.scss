@@ -9,7 +9,7 @@
   &__content-container {
     @include transition();
 
-    @include breakpoint(medium) {
+    @include breakpoint(small) {
       padding: 2rem 2rem 1rem 2rem;
     }
   }

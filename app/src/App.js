@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PeopleAPI from './api/PeopleAPI';
 import Loader from './Components/Loader';
 import Cards from './Components/Cards';
+import Header from './Components/Header';
 import Filter from './Containers/Filter';
 import './scss/main.scss';
 
@@ -152,7 +153,7 @@ class App extends Component {
 
     return (
       <section className="c-graveyard-overview u-bg-color--white u-pad--top-none u-pad--bot-none u-pad-t--top-none u-pad-t--bot-none u-pad-m--top-none u-pad-m--bot-none">
-        <div className="o-container">
+        <Header />
           <div className="u-squeeze u-squeeze--xl">
             <div className="c-graveyard-overview__container">
               <div className="c-graveyard-overview__app-container">
@@ -197,10 +198,9 @@ class App extends Component {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    );
+        </section>
+      );
+    }
   }
-}
 
 export default App;

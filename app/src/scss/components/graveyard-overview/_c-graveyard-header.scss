@@ -1,0 +1,60 @@
+.c-graveyard-header {
+  &__logo {
+    padding-top: 1rem;
+
+    @include breakpoint(small only) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__logo img {
+    width: 30%;
+    height: auto;
+
+    @include breakpoint(small only) {
+      width: 80%;
+    }
+
+    @include breakpoint(medium only) {
+      width: 40%;
+    }
+  }
+
+  &__container {
+    margin-bottom: 2.5rem;
+  }
+
+  &__banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__banner img {
+    width: 100%;
+    height: 30rem;
+    object-fit: cover;
+
+    @include breakpoint(small only) {
+      height: 20rem;
+    }
+  }
+
+  &__banner-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $white;
+    font-size: rem-calc(45);
+    font-weight: bold;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      font-size: rem-calc(30);
+    }
+  }
+}
