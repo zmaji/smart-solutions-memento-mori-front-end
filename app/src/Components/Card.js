@@ -10,16 +10,9 @@ const Post = ({ card }) => {
     setShowMore(!showMore);
   };
 
-  const geboorteDatum = card.geboortedatum;
-  const overlijdenDatum = card.datum_overlijden;
-  
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  
-  const geboorteDate = new Date(geboorteDatum);
-  const formattedGeboorteDatum = geboorteDate.toLocaleDateString("nl-NL", options);
-  
-  const overlijdenDate = new Date(overlijdenDatum);
-  const formattedOverlijdenDatum = overlijdenDate.toLocaleDateString("nl-NL", options);
+  let geboorteDatum = card.geboortedatum ? new Date(card.geboortedatum).toLocaleDateString("nl-NL", options) : card.periode_geleefd.split('-')[0].trim().replace(/[()]/g, '');
+  let sterfDatum = card.datum_overlijden ? new Date(card.datum_overlijden).toLocaleDateString("nl-NL", options) : card.periode_geleefd.split('-')[1].trim().replace(/[()]/g, '');
 
 
   const descriptionClassName = 'c-graveyard-item__description';
@@ -38,7 +31,7 @@ const Post = ({ card }) => {
           </h2>
         )}
         <div className={descriptionClassName}>
-          {formattedGeboorteDatum} - {formattedOverlijdenDatum}
+          {geboorteDatum} - {sterfDatum}
           <svg className="c-icon c-graveyard-item__icon--cross">
             <use href={`${Cross}#cross`} />
           </svg>
