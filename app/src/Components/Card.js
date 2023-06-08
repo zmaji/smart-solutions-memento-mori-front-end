@@ -120,10 +120,10 @@ const Post = ({ card }) => {
               </div>
             )}
             <div className={descriptionBlackClassName}>
-              <strong>Vader:</strong> Vader niet bekend
+              <strong>Vader:</strong> {card.vader}
             </div>
             <div className={descriptionBlackClassName}>
-              <strong>Moeder:</strong> Moeder niet bekend
+              <strong>Moeder:</strong> {card.moeder}
             </div>
             {card.reden_overlijden && (
               <div className={descriptionBlackClassName}>
