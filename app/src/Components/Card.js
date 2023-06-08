@@ -32,13 +32,16 @@ const Post = ({ card }) => {
   let geboorteDatum = card.geboortedatum ? stringToDate(card.geboortedatum) : 'Onbekend';
   let sterfDatum = card.datum_overlijden ? stringToDate(card.datum_overlijden) : 'Onbekend';
 
-  let leeftijd = card.leeftijd_tijdens_overlijden;
+  let leeftijd = card.leeftijd_tijdens_overlijden ? card.leeftijd_tijdens_overlijden : null;
 
-  if ((leeftijd.includes("mnd") || leeftijd.includes("maand")) && leeftijd !== '1') {
+  if (leeftijd !== null) {
+    if ((leeftijd.includes("mnd") || leeftijd.includes("maand")) && leeftijd !== '1') {
     leeftijd = leeftijd.replace("maand", "maanden").replace("mnd", "maanden");
-  } else {
-    leeftijd += " jaar";
+    } else {
+      leeftijd += " jaar";
+    }
   }
+  
   
   const descriptionClassName = 'c-graveyard-item__description';
   const descriptionBlackClassName = `${descriptionClassName}--black`;
