@@ -4,7 +4,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  height: auto;
 
   &__content-container {
     @include transition();
@@ -90,6 +89,20 @@
       margin-bottom: 1rem;
       text-align: center;
     }
+
+    &--bigger {
+      @include transition();
+      color: $white;
+      font-size: rem-calc(17);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    &--negative-margin {
+      margin-top: -0.4rem;
+    }
   }
 
   &__show-more-container {
@@ -118,6 +131,12 @@
       width: 0.85rem;
       height: 0.85rem;
       margin-bottom: 0.15rem;
+    }
+
+    &--question {
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-bottom: 0.3rem;
     }
   }
 }

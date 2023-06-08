@@ -65,32 +65,67 @@ class App extends Component {
   sortData(currentSort, data) {
     let sortedData = [...data];
     currentSort = this.state.currentSort[this.state.currentSort.length - 1];
-
-    if (currentSort === 'Grafnummer') {
-      console.log(`Sorting by Grafnummer`);
-      sortedData.sort((a, b) => a.grave_id.localeCompare(b.grave_id));
-    } else if (currentSort === 'Naam oplopend' || currentSort === 'Naam aflopend') {
-      sortedData.sort((a, b) => {
-        const achternaamA = a.achternaam.replace(/[()]/g, '');
-        const achternaamB = b.achternaam.replace(/[()]/g, '');
-
-        if (currentSort === 'Naam oplopend') {
-          return achternaamA.localeCompare(achternaamB);
+  
+    const getAchternaam = (item) => item.achternaam.replace(/[()]/g, '');
+    const compareAchternaam = (a, b) => getAchternaam(a).localeCompare(getAchternaam(b));
+    const compareOverlijden = (a, b) => {
+      const overlijdenA = a.datum_overlijden;
+      const overlijdenB = b.datum_overlijden;
+  
+      if (overlijdenA === null || overlijdenB === null) {
+        if (overlijdenA === null && overlijdenB !== null) {
+          return 1;
+        } else if (overlijdenA !== null && overlijdenB === null) {
+          return -1;
         } else {
-          return achternaamB.localeCompare(achternaamA);
+          return 0;
         }
-      });
-    } else if (currentSort === 'Datum overlijden aflopend') {
-      console.log('Sorting by Datum overlijden aflopend');
-      sortedData.sort((a, b) => new Date(b.datum_overlijden) - new Date(a.datum_overlijden));
-    } else if (currentSort === 'Datum overlijden oplopend') {
-      console.log('Sorting by Datum overlijden oplopend');
-      sortedData.sort((a, b) => new Date(a.datum_overlijden) - new Date(b.datum_overlijden));
+      }
+  
+      const [dayA, monthA, yearA] = overlijdenA.split('/').map(Number);
+      const [dayB, monthB, yearB] = overlijdenB.split('/').map(Number);
+  
+      if (yearA !== yearB) {
+        return yearB - yearA;
+      }
+      if (monthA !== monthB) {
+        return monthB - monthA; 
+      }
+      return dayB - dayA;
+    };
+  
+    switch (currentSort) {
+      case 'Grafnummer':
+        console.log(`Sorting by Grafnummer`);
+        sortedData.sort((a, b) => a.grave_id.localeCompare(b.grave_id));
+        break;
+  
+      case 'Naam oplopend':
+        console.log(`Sorting by Naam oplopend`);
+        sortedData.sort(compareAchternaam);
+        break;
+  
+      case 'Naam aflopend':
+        console.log(`Sorting by Naam aflopend`);
+        sortedData.sort((a, b) => compareAchternaam(b, a));
+        break;
+  
+      case 'Datum overlijden aflopend':
+        console.log(`Sorting by Datum overlijden aflopend`);
+        sortedData.sort(compareOverlijden);
+        break;
+  
+      case 'Datum overlijden oplopend':
+        console.log(`Sorting by Datum overlijden oplopend`);
+        sortedData.sort((a, b) => compareOverlijden(b, a));
+        break;
+  
+      default:
+        break;
     }
-
     return sortedData;
   }
-
+  
   handleChange(e) {
     const currentTargetName = e.currentTarget.name;
     const target = e.currentTarget.dataset.target;
