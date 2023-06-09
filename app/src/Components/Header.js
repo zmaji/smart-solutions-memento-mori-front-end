@@ -1,6 +1,6 @@
 import React from 'react';
 import logoImage from '../images/logo-stichting-memento-mori.jpg';
-import bannerImage from '../images/banner.jpg';
+import bannerImage from '../images/Weezenkerkhof_treurbeuk.jpg';
 
 const Header = () => {
   return (
