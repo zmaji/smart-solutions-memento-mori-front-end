@@ -43,18 +43,41 @@
     }
   }
 
-  &__banner-title {
+  &__content-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: $white;
-    font-size: rem-calc(45);
-    font-weight: bold;
     text-align: center;
+    color: $white;
+    max-width: 40rem;
 
-    @include breakpoint(small only) {
-      font-size: rem-calc(30);
+    &--title {
+      font-size: rem-calc(45);
+      font-weight: bold;
+      margin-bottom: 1rem;
+
+      @include breakpoint(small only) {
+        font-size: rem-calc(30);
+      }
+    }
+
+    &--description {
+      font-size: rem-calc(22.5);
+      margin-bottom: 1rem;
+
+      @include breakpoint(small only) {
+        font-size: rem-calc(18);
+      }
+    }
+
+    &--email {
+      font-size: rem-calc(20);
+      font-style: italic;
+
+      @include breakpoint(small only) {
+        font-size: rem-calc(16);
+      }
     }
   }
 }

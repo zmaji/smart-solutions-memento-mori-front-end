@@ -81,7 +81,7 @@ const Post = ({ card }) => {
               ({leeftijd})
             </div>
           )}
-          <h2 className="c-graveyard-item__subtitle">{card.functie ?? null}</h2>
+          <h2 className="c-graveyard-item__subtitle">{card.functie ?? (card.functie === null && card.rol === "Pupil" ? card.rol : null)}</h2>
       </div>
 
       <div className="c-graveyard-item__button-container">
