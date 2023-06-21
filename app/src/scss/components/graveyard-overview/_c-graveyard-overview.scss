@@ -13,6 +13,7 @@
 
   &__post {
     background-color: $stichting-memento-mori-primary-color;
+    align-self: start;
 
     @include breakpoint(small) {
       margin: 0 0.5rem;
